@@ -1,0 +1,104 @@
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+set number	"  显示行号
+" colorscheme github
+
+set autoindent
+set ruler
+set showcmd
+
+set hlsearch
+"set tabstop=4
+"set softtabstop=4
+"set shiftwidth=4
+set nobackup
+set noswapfile
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936,chinese
+set laststatus=2
+set cmdheight=2
+:inoremap ( ()<ESC>i
+:inoremap [ []<ESC>i
+:inoremap { {}<ESC>i
+:inoremap < <><ESC>i
+:inoremap " ""<ESC>i
+:inoremap ' ''<ESC>i
+set foldmethod=indent
+set guifont=Monaco:h14
+
+if has("gui_macvim")
+	set transparency=10
+	set scrolloff=3
+	set guioptions-=L
+	set guioptions-=r
+	set guioptions-=b
+endif
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+
+let mapleader="\\"
+
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'altercation/vim-colors-solarized'
+Plug 'majutsushi/tagbar'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+call plug#end()
+
+" nerdtree start
+ autocmd vimenter * NERDTree
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+map <F2> :NERDTreeToggle<CR>
+" <leader>tc 关闭当前的 tab
+map <leader>tc :tabc<CR>
+" <leader>to 关闭所有其他的 tab
+map <leader>to :tabo<CR>
+" <leader>ts 查看所有打开的 tab
+map <leader>ts :tabs<CR>
+" <leader>tp 前一个 tab
+map <leader>tp :tabp<CR>
+" <leader>tn 后一个 tab
+map <leader>tn :tabn<CR>
+" nerdtree end
+
+
+" nerdcommenter start
+filetype plugin on
+" nerdcommenter end
+
+" vim-colors-solarized start 
+syntax enable
+set background=dark
+colorscheme solarized
+" vim-colors-solarized end 
+ 
+ 
+" tagbar start
+let g:tagbar_ctags_bin = 'ctags' " tagbar 依赖 ctags 插件
+let g:tagbar_width     = 30      " 设置 tagbar 的宽度为 30 列，默认 40 列
+let g:tagbar_autofocus = 1       " 打开 tagbar 时光标在 tagbar 页面内，默认在 vim 打开的文件内
+"let g:tagbar_left      = 1       " 让 tagbar 在页面左侧显示，默认右边
+let g:tagbar_sort      = 0       " 标签不排序，默认排序
+
+nmap <F8> :TagbarToggle<CR>
+" tagbar end
+ 
+" airline start
+" airline end
